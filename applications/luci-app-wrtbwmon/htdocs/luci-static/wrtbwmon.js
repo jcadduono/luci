@@ -78,12 +78,12 @@ var perHostTotals = false, showPerHostTotalsOnly = false;
 							hostTotals[j] += data[i][1][j];
 						}
 					}
-					var hostTotalRow = '<tr><th title="' + data[curHost][1][1] + '">' + data[curHost][1][0] + '<br/> (host total) </th>';
+					var hostTotalRow = '<div class="tr cbi-section-table-titles"><div class="th" title="' + data[curHost][1][1] + '">' + data[curHost][1][0] + '<br/> (host total) </div>';
 					for (var m = 3; m < hostTotals.length; m++) {
 						var t = hostTotals[m];
-						hostTotalRow += '<td align="right">' + getSize(t) + (m < 5 ? '/s' : '') + '</td>'
+						hostTotalRow += '<div class="td right">' + getSize(t) + (m < 5 ? '/s' : '') + '</div>'
 					}
-					hostTotalRow += '</tr>';
+					hostTotalRow += '</div>';
 					data.splice(insertAt, 0, [hostTotalRow, hostTotals]);
 				}
 				curHost = insertAt;
@@ -106,25 +106,25 @@ var perHostTotals = false, showPerHostTotalsOnly = false;
 		});
 
 		// display data
-		var result = '<tr>\
-							<th id="thClient">Client</th>\
-							<th id="thDownload">Download</th>\
-							<th id="thUpload">Upload</th>\
-							<th id="thTotalDown">Total Down</th>\
-							<th id="thTotalUp">Total Up</th>\
-							<th id="thTotal">Total</th>\
-							<th id="thFirstSeen">First Seen</th>\
-							<th id="thLastSeen">Last Seen</th>\
-						  </tr>';
+		var result = '<div class="tr cbi-section-table-titles">\
+				<div class="th" id="thClient">Client</div>\
+				<div class="th" id="thDownload">Download</div>\
+				<div class="th" id="thUpload">Upload</div>\
+				<div class="th" id="thTotalDown">Total Down</div>\
+				<div class="th" id="thTotalUp">Total Up</div>\
+				<div class="th" id="thTotal">Total</div>\
+				<div class="th" id="thFirstSeen">First Seen</div>\
+				<div class="th" id="thLastSeen">Last Seen</div>\
+			</div>';
 		for (var k = 0; k < data.length; k++) {
 			result += data[k][0];
 		}
-		result += '<tr><th>TOTAL</th>';
+		result += '<div class="tr cbi-section-table-titles"><div class="th">TOTAL</div>';
 		for (var m = 0; m < totals.length; m++) {
 			var t = totals[m];
-			result += '<td align="right">' + getSize(t) + (m < 2 ? '/s' : '') + '</td>'
+			result += '<div class="td right">' + getSize(t) + (m < 2 ? '/s' : '') + '</div>'
 		}
-		result += '</tr>';
+		result += '</div>';
 		return result;
 
 		function handleRow(data) {
@@ -162,22 +162,22 @@ var perHostTotals = false, showPerHostTotalsOnly = false;
 
 			// create displayData
 			var displayData = [
-				'<td title="' + data[1] + '">' + data[0] + '<br />' + data[2] + '</td>',
-				'<td align="right">' + getSize(dlSpeed) + '/s</td>',
-				'<td align="right">' + getSize(upSpeed) + '/s</td>',
-				'<td align="right">' + getSize(data[3]) + '</td>',
-				'<td align="right">' + getSize(data[4]) + '</td>',
-				'<td align="right">' + getSize(data[5]) + '</td>',
-				'<td>' + getDateString(data[6]) + '</td>',
-				'<td>' + getDateString(data[7]) + '</td>'
+				'<div class="td" title="' + data[1] + '">' + data[0] + '<br />' + data[2] + '</div>',
+				'<div class="td right">' + getSize(dlSpeed) + '/s</div>',
+				'<div class="td right">' + getSize(upSpeed) + '/s</div>',
+				'<div class="td right">' + getSize(data[3]) + '</div>',
+				'<div class="td right">' + getSize(data[4]) + '</div>',
+				'<div class="td right">' + getSize(data[5]) + '</div>',
+				'<div class="td">' + getDateString(data[6]) + '</div>',
+				'<div class="td">' + getDateString(data[7]) + '</div>'
 			];
 
 			// display row data
-			var result = '<tr>';
+			var result = '<div class="tr cbi-section-table-row">';
 			for (var k = 0; k < displayData.length; k++) {
 				result += displayData[k];
 			}
-			result += '</tr>';
+			result += '</div>';
 			return [result, rowData];
 		}
 	}
@@ -220,7 +220,7 @@ var perHostTotals = false, showPerHostTotalsOnly = false;
 					if (!v) {
 						handleError();
 					} else {
-						document.getElementById('tableBody').innerHTML = handleValues(v);
+						document.getElementById('divUsage').innerHTML = handleValues(v);
 						setSortColumn(null, null, false);
 						// set old values
 						oldValues = v;
@@ -310,7 +310,7 @@ var perHostTotals = false, showPerHostTotalsOnly = false;
 		sortedColumn = col != null ? col : sortedColumn;
 		sortedEltId = eltid ? eltid : sortedEltId;
 		if (do_sort)
-			document.getElementById('tableBody').innerHTML = handleValues(oldValues);
+			document.getElementById('divUsage').innerHTML = handleValues(oldValues);
 		e = document.getElementById(sortedEltId);
 		if (e)
 			e.innerHTML = e.innerHTML + (sortDirection == "asc" ? "&#x25B2" : "&#x25BC");
